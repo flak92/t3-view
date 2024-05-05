@@ -1,0 +1,73 @@
+
+<f:spaceless>
+<!-- First Level -->
+<ul id="first-level">
+    <f:for each="{mainMenu}" as="firstLevelItem">
+        <f:if condition="{firstLevelItem.children}">
+            <f:then>
+            <li data-target="page{firstLevelItem.data.uid}">
+                <span>{firstLevelItem.data.title}</span>
+                <span class="arrow">&rarr;</span>
+            </li>
+            </f:then>
+        <f:else>
+            <li>
+                <f:link.page
+                        pageUid="{firstLevelItem.data.uid}">
+                    <span>{firstLevelItem.data.title}</span>
+                </f:link.page>
+            </li>
+        </f:else>
+        </f:if>
+    </f:for>
+</ul>
+
+<!-- Second Level: Submenus -->
+
+<f:for each="{mainMenu}" as="a">
+    <ul id="page{a.data.uid}" class="submenu">
+        <div class="back-button" data-target="first-level">&#8592; Back to Master</div>
+
+            <f:for each="{a.children}" as="b">
+                <li data-target="page{b.data.uid}">
+                    <f:if condition="{b.children}">
+                        <f:then>
+                            <span>{b.data.title}</span>
+                            <span class="arrow">&rarr;</span>
+                        </f:then>
+                        <f:else>
+                        <f:link.page pageUid="{b.data.uid}"><span>{b.data.title}</span></f:link.page>
+                        </f:else>
+                    </f:if>
+                </li>
+            </f:for>
+    </ul>
+</f:for>
+
+<!-- Third Level: Further Submenus -->
+<f:for each="{mainMenu}" as="c">
+    <f:if condition="{c.children}">
+        <f:for each="{c.children}" as="d">
+            <f:if condition="{d.children}">
+                <ul id="page{d.data.uid}" class="submenu">
+                    <div class="back-button" data-target="page{c.data.uid}">&#8592; Back to Page {c.data.title}</div>
+                    <f:for each="{d.children}" as="e">
+                        <li>
+                            <f:if condition="{e.children}">
+                                <f:then>
+                                <span>{e.data.title}</span>
+                                    <span class="arrow">&rarr;</span>
+                                    </f:then>
+                            <f:else>
+                                <f:link.page pageUid="{e.data.uid}"><span>{e.data.title}</span></f:link.page>
+                            </f:else>
+                            </f:if>
+                        </li>
+                    </f:for>
+                </ul>
+            </f:if>
+        </f:for>
+    </f:if>
+</f:for>
+
+</f:spaceless>

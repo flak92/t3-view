@@ -1,0 +1,5 @@
+@import "EXT:t3view/Configuration/TypoScript/Constants/*.typoscript"
+
+t3view {
+    rootPageId = 1
+}

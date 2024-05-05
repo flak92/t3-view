@@ -1,0 +1,36 @@
+#config.contentObjectExceptionHandler = 0
+
+
+page = PAGE
+
+page {
+    shortcutIcon = EXT:t3view/Resources/Public/Icons/favicon.png
+
+    meta {
+        viewport = width=device-width, initial-scale=1, user-scalable=no
+    }
+
+    includeCSS {
+        css = EXT:t3view/Resources/Public/Css/cssfile.css
+    }
+
+    includeJSFooter {
+        js = EXT:t3view/Resources/Public/JavaScript/jsfile.js
+    }
+
+}
+
+page.10 = FLUIDTEMPLATE
+page.10 {
+    layoutRootPath = EXT:t3view/Resources/Private/Layouts/
+    partialRootPath = EXT:t3view/Resources/Private/Partials/
+    file = EXT:t3view/Resources/Private/Templates/Default.html
+    }
+
+    variables {
+        content0 < styles.content.get
+    }
+
+    settings {
+        rootPageId = {$t3view.rootPageId}
+    }

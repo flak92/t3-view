@@ -1,0 +1,11 @@
+page.10.dataProcessing {
+    ## Sidebar-Menu
+    10 = TYPO3\CMS\Frontend\DataProcessing\MenuProcessor
+    10 {
+        as = mainMenu
+        expandAll = 1
+        levels = 3
+        includeSpacer = 1
+        titleField = nav_title // title
+    }
+}
