@@ -97,9 +97,10 @@ body {
 /* Adjusting Go Back Button */
 .go-back {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.5rem 0;
+    flex-direction: column; /* Arrange the arrow and text vertically */
+    align-items: center;    /* Center both arrow and text horizontally */
+    justify-content: center;
+    padding: 1rem 0;
     border-bottom: 0.1rem solid #eaeaea;
     cursor: pointer;
     outline: none;
@@ -117,23 +118,25 @@ body {
 }
 
 .backarrow::before {
-    content: "🡄";
+    content: "←";
 }
 
 .backarrow {
-    font-size: 1.2rem;
+    font-size: 2rem;
     font-weight: bold;
     color: #d9257f;
     transition: transform 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 0.3rem; /* Space between arrow and text */
 }
 
 .go-back:hover .backarrow::before,
 .go-back:focus .backarrow::before {
     transform: translateX(-0.2rem);
 }
+
 
 /* Menu list */
 ul {
