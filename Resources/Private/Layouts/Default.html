@@ -1,17 +1,24 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:spaceless>
 
+    <div class="nav-bar">
+        <div>
+        </div>
+        <div class="menu-icons menu-icons-wrapper">
+            <!-- Sidebar-Menu & Hamburger Menu -->
+            <div id="search-button" class="">🔍</div>
+            <div class="divider"></div>
+            <button id="open-menu" class="icon-button">☰</button>
+            <div id="menu" class="menu">
+                <div id="close-button" class="close-button"></div>
+                <f:render partial="MainMenu" arguments="{_all}"/>
+            </div>
+        </div>
+    </div>
 
-<!-- Sidebar-Menu & Hamburger Menu -->
-<button id="open-menu" class="open-button">☰ Menu</button>
-    <div id="menu" class="menu">
-        <div id="close-button" class="close-button">&#10006;</div>
-<f:render partial="MainMenu" arguments="{_all}" />
 
-
-
-<!-- Main -->
-<f:render section="Main" />
+    <!-- Main -->
+    <f:render section="Main"/>
 
 
 </f:spaceless>

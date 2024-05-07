@@ -1,27 +1,27 @@
+// Toggle visibility of menus
+function toggleMenus(hideSelectors, showSelector) {
+    document.querySelectorAll(hideSelectors).forEach((ul) => (ul.style.display = 'none'));
+    document.getElementById(showSelector).style.display = 'block';
+}
+
 // Open the main menu
-document.getElementById("open-menu").addEventListener("click", function() {
-    document.getElementById("menu").classList.add("active");
+document.getElementById('open-menu').addEventListener('click', () => {
+    document.getElementById('menu').classList.add('active');
 });
 
-// Close the main menu using the close button
-document.getElementById("close-button").addEventListener("click", function() {
-    document.getElementById("menu").classList.remove("active");
+// Close the main menu with close button
+document.getElementById('close-button').addEventListener('click', () => {
+    document.getElementById('menu').classList.remove('active');
 });
 
-// Add click event listeners to switch between levels
-document.querySelectorAll('[data-target]').forEach(function(item) {
-    item.addEventListener('click', function() {
-        // Hide all menus and show the targeted submenu
-        document.querySelectorAll('ul').forEach(ul => ul.style.display = 'none');
-        document.getElementById(item.dataset.target).style.display = 'block';
-    });
-});
+// Switching between levels
+document.getElementById('menu').addEventListener('click', (event) => {
+    const target = event.target;
+    const listItem = target.closest('[data-target]');
 
-// Back buttons to return to parent menus
-document.querySelectorAll('.back-button').forEach(function(button) {
-    button.addEventListener('click', function() {
-        // Hide all menus and show the parent menu
-        document.querySelectorAll('ul').forEach(ul => ul.style.display = 'none');
-        document.getElementById(button.dataset.target).style.display = 'block';
-    });
+    if (listItem) {
+        toggleMenus('ul', listItem.dataset.target);
+    } else if (target.classList.contains('back-button')) {
+        toggleMenus('ul', target.dataset.target);
+    }
 });

@@ -1,79 +1,62 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:spaceless>
+    
+    <f:render section="main" arguments="{_all}"/>
 
-    <!-- First Level -->
-    <ul id="first-level">
-        <f:for each="{mainMenu}" as="firstLevelItem">
-            <f:if condition="{firstLevelItem.children}">
-                <f:then>
-                    <li data-target="page{firstLevelItem.data.uid}">
-                        <span>{firstLevelItem.data.title}</span>
-                        <span class="arrow">&rarr;</span>
-                    </li>
-                </f:then>
-                <f:else>
-                    <f:link.page
-                            pageUid="{firstLevelItem.data.uid}">
-                        <li>
-                            <span>{firstLevelItem.data.title}</span>
-                        </li>
-                    </f:link.page>
-                </f:else>
-            </f:if>
-        </f:for>
-    </ul>
-
-    <!-- Second Level: Submenus -->
-    <f:for each="{mainMenu}" as="a">
-        <ul id="page{a.data.uid}" class="submenu">
-            <div class="back-button" data-target="first-level">&#8592; Back to Main Menu</div>
-            <f:for each="{a.children}" as="b">
-                <f:if condition="{b.children}">
+    <f:section name="main">
+        <ul id="first-level">
+            <f:for each="{mainMenu}" as="firstLevelItem">
+                <f:if condition="{firstLevelItem.children}">
                     <f:then>
-                        <li data-target="page{b.data.uid}">
-                            <span>{b.data.title}</span>
-                            <span class="arrow">&rarr;</span>
+                        <li data-target="page{firstLevelItem.data.uid}">
+                            <span>{firstLevelItem.data.title}</span>
+                            <span class="arrow"></span>
                         </li>
                     </f:then>
                     <f:else>
-                        <f:link.page pageUid="{b.data.uid}">
-                            <li><span>{b.data.title}</span></li>
+                        <f:link.page pageUid="{firstLevelItem.data.uid}">
+                            <span>{firstLevelItem.data.title}</span>
                         </f:link.page>
-
                     </f:else>
                 </f:if>
             </f:for>
         </ul>
-    </f:for>
 
-    <!-- Third Level: Further Submenus -->
-    <f:for each="{mainMenu}" as="c">
-        <f:if condition="{c.children}">
-            <f:for each="{c.children}" as="d">
-                <f:if condition="{d.children}">
-                    <ul id="page{d.data.uid}" class="submenu">
-                        <div class="back-button" data-target="page{c.data.uid}">&#8592; Back to Page {c.data.title}
-                        </div>
-                        <f:for each="{d.children}" as="e">
-                            <f:if condition="{e.children}">
-                                <f:then>
-                                    <li data-target="page{e.data.uid}">
-                                        <span>{e.data.title}</span>
-                                        <span class="arrow">&rarr;</span>
-                                    </li>
-                                </f:then>
-                                <f:else>
-                                    <f:link.page pageUid="{e.data.uid}">
-                                        <li><span>{e.data.title}</span></li>
-                                    </f:link.page>
-                                </f:else>
-                            </f:if>
-                        </f:for>
-                    </ul>
+        <f:for each="{mainMenu}" as="firstLevelItem">
+            <f:if condition="{firstLevelItem.children}">
+                <f:render section="submenu"
+                          arguments="{parentItem: firstLevelItem, parentId: 'first-level', parentName: 'Main Menu'}"/>
+            </f:if>
+        </f:for>
+    </f:section>
+
+    <f:section name="submenu">
+        <ul id="page{parentItem.data.uid}" class="submenu" style="display: none;">
+            <div class="go-back" data-target="{parentId}"><span class="backarrow"></span> Back to {parentName}</div>
+            <f:for each="{parentItem.children}" as="childItem">
+                <f:if condition="{childItem.children}">
+                    <f:then>
+                        <li data-target="page{childItem.data.uid}">
+                            <span>{childItem.data.title}</span>
+                            <span class="arrow"></span>
+                        </li>
+                    </f:then>
+                    <f:else>
+                        <f:link.page pageUid="{childItem.data.uid}">
+                            <span>{childItem.data.title}</span>
+                        </f:link.page>
+                    </f:else>
                 </f:if>
             </f:for>
-        </f:if>
-    </f:for>
+        </ul>
+
+        <f:for each="{parentItem.children}" as="childItem">
+            <f:if condition="{childItem.children}">
+                <f:render section="submenu"
+                          arguments="{parentItem: childItem, parentId: 'page{parentItem.data.uid}', parentName: parentItem.data.title}"/>
+            </f:if>
+        </f:for>
+    </f:section>
 
 </f:spaceless>
 </html>
